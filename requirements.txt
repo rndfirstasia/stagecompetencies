@@ -1,7 +1,5 @@
 pandas
 numpy
 seaborn
-tkinter
-customtkinter
 matplotlib
 ctypes
