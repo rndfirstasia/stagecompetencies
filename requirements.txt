@@ -6,3 +6,4 @@ streamlit
 tk
 customtkinter
 ctypes
+pip==23.3.2
