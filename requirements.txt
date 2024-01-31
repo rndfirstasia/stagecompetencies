@@ -1,0 +1,8 @@
+pandas
+numpy
+math
+seaborn
+tkinter
+customtkinter
+matplotlib
+ctypes
