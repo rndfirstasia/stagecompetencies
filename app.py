@@ -1,63 +1,132 @@
+# Copyright (c) Streamlit Inc. (2018-2022) Snowflake Inc. (2022)
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
 import pandas as pd
 import numpy  as np
 import math
 import seaborn as sns
-
-import tkinter as tk
-from tkinter import ttk
-from tkinter import filedialog
-
-import customtkinter as ctk
-
-from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 import matplotlib.pyplot as plt
+import streamlit as st
+from io import StringIO
 
-from ctypes import windll
-windll.shcore.SetProcessDpiAwareness(1)
+st.header('STAGE Competencies Checker App')
 
-### -- Def Funcs --
+uploaded_file = st.file_uploader("Choose a file")
+if uploaded_file is not None:
+    t_data0 = pd.read_csv(uploaded_file, sep =';')
+    t_data  = t_data0.iloc[: , 0:-1] 
+    st.dataframe(t_data0, height = 200)
 
-dim_fac_pick    = []
-level_pick      = []
+###
 
-def browseFiles():
-    global path
-    path = filedialog.askopenfilename(initialdir = "/", title = "Select a File",
-                                     filetypes = (("CSV files","*.csv"),("all files","*.*")))
+select_dimfac   = ['','S','S1','S2','S3','S4','T','T1','T2','T3','T4','T5','A','A1','A2','A3','A4',\
+               'G','G1','G2','G3','G4','E','E1','E2','E3','E4','E5','E6']
+
+select_level    = ['','--','-','=','+','++']
+
+pick_container = st.container(height=400)
+col1, col2 = pick_container.columns(2)
+
+with col1:
+    select_dimfac1 = st.selectbox('Dimensi / Facet 1', select_dimfac)
+    select_dimfac2 = st.selectbox('Dimensi / Facet 2', select_dimfac)
+    select_dimfac3 = st.selectbox('Dimensi / Facet 3', select_dimfac)
+    select_dimfac4 = st.selectbox('Dimensi / Facet 4', select_dimfac)
+    select_dimfac5 = st.selectbox('Dimensi / Facet 5', select_dimfac)
+    select_dimfac6 = st.selectbox('Dimensi / Facet 6', select_dimfac)
+    select_dimfac7 = st.selectbox('Dimensi / Facet 7', select_dimfac)
+    select_dimfac8 = st.selectbox('Dimensi / Facet 8', select_dimfac)
+    select_dimfac9 = st.selectbox('Dimensi / Facet 9', select_dimfac)
+    select_dimfac10 = st.selectbox('Dimensi / Facet 10', select_dimfac)
+    select_dimfac11 = st.selectbox('Dimensi / Facet 11', select_dimfac)
+    select_dimfac12 = st.selectbox('Dimensi / Facet 12', select_dimfac)
+    select_dimfac13 = st.selectbox('Dimensi / Facet 13', select_dimfac)
+    select_dimfac14 = st.selectbox('Dimensi / Facet 14', select_dimfac)
+    select_dimfac15 = st.selectbox('Dimensi / Facet 15', select_dimfac)
+    select_dimfac16 = st.selectbox('Dimensi / Facet 16', select_dimfac)
+    select_dimfac17 = st.selectbox('Dimensi / Facet 17', select_dimfac)
+    select_dimfac18 = st.selectbox('Dimensi / Facet 18', select_dimfac)
+    select_dimfac19 = st.selectbox('Dimensi / Facet 19', select_dimfac)
+    select_dimfac20 = st.selectbox('Dimensi / Facet 20', select_dimfac)
+    select_dimfac21 = st.selectbox('Dimensi / Facet 21', select_dimfac)
+    select_dimfac22 = st.selectbox('Dimensi / Facet 22', select_dimfac)
+    select_dimfac23 = st.selectbox('Dimensi / Facet 23', select_dimfac)
+    select_dimfac24 = st.selectbox('Dimensi / Facet 24', select_dimfac)
+    select_dimfac25 = st.selectbox('Dimensi / Facet 25', select_dimfac)
+    select_dimfac26 = st.selectbox('Dimensi / Facet 26', select_dimfac)
+    select_dimfac27 = st.selectbox('Dimensi / Facet 27', select_dimfac)
+    select_dimfac28 = st.selectbox('Dimensi / Facet 28', select_dimfac)
+
+with col2:
+    select_level1 = st.selectbox('Level 1',select_level)
+    select_level2 = st.selectbox('Level 2',select_level)
+    select_level3 = st.selectbox('Level 3',select_level)
+    select_level4 = st.selectbox('Level 4',select_level)
+    select_level5 = st.selectbox('Level 5',select_level)
+    select_level6 = st.selectbox('Level 6',select_level)
+    select_level7 = st.selectbox('Level 7',select_level)
+    select_level8 = st.selectbox('Level 8',select_level)
+    select_level9 = st.selectbox('Level 9',select_level)
+    select_level10 = st.selectbox('Level 10',select_level)
+    select_level11 = st.selectbox('Level 11',select_level)
+    select_level12 = st.selectbox('Level 12',select_level)
+    select_level13 = st.selectbox('Level 13',select_level)
+    select_level14 = st.selectbox('Level 14',select_level)
+    select_level15 = st.selectbox('Level 15',select_level)
+    select_level16 = st.selectbox('Level 16',select_level)
+    select_level17 = st.selectbox('Level 17',select_level)
+    select_level18 = st.selectbox('Level 18',select_level)
+    select_level19 = st.selectbox('Level 19',select_level)
+    select_level20 = st.selectbox('Level 20',select_level)
+    select_level21 = st.selectbox('Level 21',select_level)
+    select_level22 = st.selectbox('Level 22',select_level)
+    select_level23 = st.selectbox('Level 23',select_level)
+    select_level24 = st.selectbox('Level 24',select_level)
+    select_level25 = st.selectbox('Level 25',select_level)
+    select_level26 = st.selectbox('Level 26',select_level)
+    select_level27 = st.selectbox('Level 27',select_level)
+    select_level28 = st.selectbox('Level 28',select_level)
+
+###
+
+if st.button('Hitung dan Tampilkan'):
     
-    path_label.configure(text=path)
+    dim_fac_pick      = []
+    level_pick        = []
+    dim_fac_pick_c    = []
+    level_pick_c      = []
 
-def add_crit():
-    dim_fac_pick.clear()
-    level_pick.clear()
+    dimfacvar = [select_dimfac1, select_dimfac2, select_dimfac3, select_dimfac4, select_dimfac5, select_dimfac6, select_dimfac7, select_dimfac8, select_dimfac9, select_dimfac10, select_dimfac11, select_dimfac12, select_dimfac13, select_dimfac14, select_dimfac15, select_dimfac16, select_dimfac17, select_dimfac18, select_dimfac19, select_dimfac20, select_dimfac21, select_dimfac22, select_dimfac23, select_dimfac24, select_dimfac25, select_dimfac26, select_dimfac27, select_dimfac28]
+    levelvar  = [select_level1, select_level2, select_level3, select_level4, select_level5, select_level6, select_level7, select_level8, select_level9, select_level10, select_level11, select_level12, select_level13, select_level14, select_level15, select_level16, select_level17, select_level18, select_level19, select_level20, select_level21, select_level22, select_level23, select_level24, select_level25, select_level26, select_level27, select_level28]
+    zipped1 = zip(dimfacvar,levelvar)
+    for i,o in zipped1:
+        dim_fac_pick.append(i)
+        level_pick.append(o)
 
-    dim_fac_lst = [dropdown_dim_fac1.get(),dropdown_dim_fac2.get(),dropdown_dim_fac3.get(),dropdown_dim_fac4.get(),dropdown_dim_fac5.get(),dropdown_dim_fac6.get(),dropdown_dim_fac7.get(),dropdown_dim_fac8.get(),dropdown_dim_fac9.get(),dropdown_dim_fac10.get(),dropdown_dim_fac11.get(),dropdown_dim_fac12.get(),dropdown_dim_fac13.get(),dropdown_dim_fac14.get(),dropdown_dim_fac15.get(),dropdown_dim_fac16.get(),dropdown_dim_fac17.get(),dropdown_dim_fac18.get(),dropdown_dim_fac19.get(),dropdown_dim_fac20.get(),dropdown_dim_fac21.get(),dropdown_dim_fac22.get(),dropdown_dim_fac23.get(),dropdown_dim_fac24.get(),dropdown_dim_fac25.get(),dropdown_dim_fac26.get(),dropdown_dim_fac27.get(),dropdown_dim_fac28.get()]
-    dim_fac_lst = pd.DataFrame(data=dim_fac_lst).dropna()
-    len_dim     = range(0,len(dim_fac_lst))
-
-    level_lst   = [dropdown_lvl1.get(),dropdown_lvl2.get(),dropdown_lvl3.get(),dropdown_lvl4.get(),dropdown_lvl5.get(),dropdown_lvl6.get(),dropdown_lvl7.get(),dropdown_lvl8.get(),dropdown_lvl9.get(),dropdown_lvl10.get(),dropdown_lvl11.get(),dropdown_lvl12.get(),dropdown_lvl13.get(),dropdown_lvl14.get(),dropdown_lvl15.get(),dropdown_lvl16.get(),dropdown_lvl17.get(),dropdown_lvl18.get(),dropdown_lvl19.get(),dropdown_lvl20.get(),dropdown_lvl21.get(),dropdown_lvl22.get(),dropdown_lvl23.get(),dropdown_lvl24.get(),dropdown_lvl25.get(),dropdown_lvl26.get(),dropdown_lvl27.get(),dropdown_lvl28.get()]
-    level_lst   = pd.DataFrame(data=level_lst).dropna()
-    len_lvl     = range(0,len(level_lst))
-
-    for i in len_dim:
-        if dim_fac_lst.iloc[i,0]=='':
+    zipped2 = zip(dim_fac_pick,level_pick)
+    for i,o in zipped2:
+        if i == '' or o == '':
             pass
         else:
-            dim_fac_pick.append(dim_fac_lst.iloc[i,0])
+            dim_fac_pick_c.append(i)
+            level_pick_c.append(o)    
 
-    for i in len_lvl:
-        if level_lst.iloc[i,0]=='':
-            pass
-        else:
-            level_pick.append(level_lst.iloc[i,0])
+    padanan = pd.DataFrame(data={'dim_fac':dim_fac_pick_c,'level':level_pick_c})
+    st.write('Berikut Padanan yang dipilih:')
+    st.write(padanan)
 
-def stage_comp_check():
-    ## Input DataFrame ##
-    path_val = path.replace('/','\\')
-    t_data0 = pd.read_csv(path_val,sep = ";")
-    t_data = t_data0.iloc[: , 0:-1]
-
-    ## Def Functions & Score Matrix ##
+    ## CALC ##
     #TScore to Cluster
     def t_to_cluster(score):
         if score < 34:
@@ -118,7 +187,7 @@ def stage_comp_check():
 
     ## Padanan for Matching ##
     padanan         = [] #list with dataframe for matching
-    forpadanan      = zip(dim_fac_pick,level_pick)
+    forpadanan      = zip(dim_fac_pick_c,level_pick_c)
 
     for i,o in forpadanan:
         temp = score_matrix[score_matrix['dimension_facet'].isin([i]) & score_matrix['level'].isin([o])] #note isin()
@@ -128,11 +197,11 @@ def stage_comp_check():
     cluster_data = t_data.map(t_to_cluster)
 
     ## Cluster data clean ##
-    cluster_data2 = cluster_data.loc[:,dim_fac_pick]
+    cluster_data2 = cluster_data.loc[:,dim_fac_pick_c]
 
     ## Cluster to score ##
-    col_num         = range(0,len(dim_fac_pick))
-    zipped          = zip(col_num,dim_fac_pick)
+    col_num         = range(0,len(dim_fac_pick_c))
+    zipped          = zip(col_num,dim_fac_pick_c)
 
     score_data      = pd.DataFrame()
     col_name_dim    = []
@@ -150,7 +219,7 @@ def stage_comp_check():
 
     ## Dimension Averages ##
     # Rename Columns
-    rename_col_name     = dict(zip(dim_fac_pick,col_name_dim))
+    rename_col_name     = dict(zip(dim_fac_pick_c,col_name_dim))
     score_data2         = score_data.rename(columns=rename_col_name) #renamed columns dataframe
     col_name_set        = set(col_name_dim)
     # Averages (score_data3)
@@ -170,178 +239,44 @@ def stage_comp_check():
     final_data['sten']  = final_data.map(score_to_sten, mean = mean_avgscore, std = std_avgscore).map(int).map(math.floor)
 
     # Convert and Add categories column
-    final_data['categories']  = final_data.iloc[:,1].map(sten_to_cat)
+    final_data['categories_old']  = t_data0.iloc[: , [-1]]
+    final_data['categories_new']  = final_data.iloc[:,1].map(sten_to_cat)
 
-    ### for graph
-    global old_data,new_data
-    old_data        = t_data0.iloc[:,[-1]]
-    new_data        = final_data.iloc[:,[-1]]
+    # show_data
+    show_data = final_data.iloc[:,[2,3]]
 
-    oldCat         = ['VL','L','M','H','VH']
-    oldCat_count   = []
-    oldCat_info    = []
+    st.write('Berikut Hasil Perubahan Padanan:')
+    st.write(show_data)
 
-    newCat         = ['VL','L','M','H','VH']
-    newCat_count   = []
-    newCat_info    = []
+    #for data graph
+    categories   = ['VL','L','M','H','VH']
+    oldCat_count = []
+    oldCat_info  = []
+    newCat_count = []
+    newCat_info  = []
 
-    for i in newCat:
-        oldtemp    = sum(old_data.iloc[:,0] == i)
+    for i in categories:
+        oldtemp    = sum(show_data.iloc[:,0] == i)
         oldCat_count.append(oldtemp)
 
-        newtemp    = sum(new_data['categories'] == i)
+        newtemp    = sum(show_data.iloc[:,1] == i)
         newCat_count.append(newtemp)
-
-    while len(newCat_info) < len(newCat):
+    
+    while len(newCat_info) < len(categories):
         newCat_info.append('New')
         oldCat_info.append('Old')
 
-    df0 = pd.DataFrame(data={'categories':oldCat,'count':oldCat_count,'info':oldCat_info})
-    df1 = pd.DataFrame(data={'categories':newCat,'count':newCat_count,'info':newCat_info})
-
-    global compiled_data
+    df0 = pd.DataFrame(data={'categories':categories,'count':oldCat_count,'info':oldCat_info})
+    df1 = pd.DataFrame(data={'categories':categories,'count':newCat_count,'info':newCat_info})
     compiled_data = pd.concat([df0,df1])
 
-    print(compiled_data)
+    #figure
+    fig = plt.figure()
 
-    ### create frame and pack for graph
-    grpfrm = tk.Frame(main_window)
-    grpfrm.place(x=710,y=110)
-    
-    fig = create_graph() #nyambung sama function create_graph()
-
-    canvas = FigureCanvasTkAgg(fig,master=grpfrm)
-    canvas.draw()
-    canvas.get_tk_widget().pack(side=tk.TOP, fill=tk.BOTH, expand=1)
-
-def create_graph():
+    #graph
     sns.set_theme(style="whitegrid")
+    sns.barplot (data=compiled_data, x="categories", y="count", hue="info", palette="Set1", alpha=.8).set(title="Distribusi Kategori Sebelum dan Sesudah Perubahan Padanan")
 
-    figure, ax  = plt.subplots(figsize=(5,5))
-
-    sns.barplot (
-    data=compiled_data,
-    x="categories", y="count", hue="info",
-    palette="Set1", alpha=.8, ax=ax).set(title="Distribusi Kategori Sebelum dan Sesudah Perubahan Padanan")
-
-    return figure
-
-def saveFile():
-    path_ex     = filedialog.asksaveasfilename(defaultextension=".csv", filetypes=(("csv files", "*.csv"),("All Files", "*.*") ))
-
-    df = pd.DataFrame()
-    df['old_data']    = old_data.iloc[:,0]
-    df['new_data']    = new_data.iloc[:,0]
-
-    path_ex_conv = path_ex.replace('/','\\')
-    df.to_csv(path_ex_conv,index=False)
-
-    export_label.configure(text='Save data (.csv): File Saved')
-
-def _quit():
-    main_window.quit()
-    main_window.destroy() 
-
-### -- App Interface --
-    
-main_window = tk.Tk()
-main_window.protocol("WM_DELETE_WINDOW", _quit)
-main_window.title('STAGE Competencies Checker')
-main_window.geometry('1450x900+50+50')  
-
-title               = ttk.Label(main_window,text='STAGE Competencies Checker',
-                               font=('Roboto',18)).place(x=10,y=10)
-
-fileSelect_label    = ttk.Label(main_window,text='Silakan pilih file anda (.csv)',
-                                font=('Roboto',12),anchor=tk.W,foreground='white',
-                                background='blue').place(x=10,y=70)
-
-select_label        = ttk.Label(main_window,text='Current File: ',
-                                font=('Roboto',9),anchor=tk.W,foreground='white',background='black')
-
-select_label.place(x=110,y=110)
-
-path_label          = ttk.Label(main_window,text='',font=('Roboto',9),anchor=tk.W,foreground='white',background='black',width=60)
-path_label.place(x=110,y=140)
-
-add_file_button     = tk.Button(main_window,text='Pilih file',command=browseFiles).place(x=10,y=110)
-
-###
-
-col1=ttk.Label(main_window,text='Index',font=('Roboto',14),anchor=tk.W).place(x=25,y=180)
-col2=ttk.Label(main_window,text='Dimensi',font=('Roboto',14),anchor=tk.W).place(x=180,y=180)
-col3=ttk.Label(main_window,text='Level',font=('Roboto',14),anchor=tk.W).place(x=390,y=180)
-
-### -- scrollable frame
-frm = ctk.CTkScrollableFrame(main_window,width=450,height=380)
-frm.place(x=10,y=180)
-
-### -- Kompetensi & Level Label
-grid_index = range(0,28)
-label_add  = range(1,29)
-
-zipped     = zip(grid_index,label_add)
-
-for i,o in zipped:
-    ctk.CTkLabel(frm,text='Kompetensi & Level '+str(o) ,font=('Roboto',12),
-                 anchor='w').grid(row = i,column = 0, pady=6)
-
-### ### -- dropdown dim_fac
-dropdown_content  = ['','S','S1','S2','S3','S4',
-                        'T','T1','T2','T3','T4','T5',
-                        'A','A1','A2','A3','A4',
-                        'G','G1','G2','G3','G4',
-                        'E','E1','E2','E3','E4','E5','E6']
-selected_name = []
-dropdown_name = []
-num_dropdown  = range(1,29)
-row_num       = range(0,28)
-for i in num_dropdown:
-    selected_name.append('selected_dimfac'+str(i))
-    dropdown_name.append('dropdown_dim_fac'+str(i))
-
-zipped = zip(selected_name,dropdown_name,row_num)
-for i,o,p in zipped:
-    globals()[i] = tk.StringVar()
-
-    globals()[o] = ttk.Combobox(frm, textvariable = globals()[i],
-                                values=dropdown_content,state='readonly')
-    
-    globals()[o].grid(row=p,column=1,padx=8)
-
-### ### -- dropdown lvl
-dropdown_content1 = ['','--','-','=','+','++']
-selected_name1 = []
-dropdown_name1 = []
-for i in num_dropdown:
-    selected_name1.append('selected_lvl'+str(i))
-    dropdown_name1.append('dropdown_lvl'+str(i))
-
-zipped1        = zip(selected_name1,dropdown_name1,row_num)
-for a,b,c in zipped1:
-    globals()[a] = tk.StringVar()
-    globals()[b] = ttk.Combobox(frm, textvariable = globals()[a],
-                                values=dropdown_content1,state='readonly')
-    globals()[b].grid(row=c,column=2,padx=8)
-
-###
-
-add_crit_button = tk.Button(main_window,text='Tambah Padanan',
-                            command=add_crit).place(x=10,y=730)
-
-calc_button     = tk.Button(main_window,text='Hitung dan Tampilkan',
-                            command=stage_comp_check).place(x=150,y=730)
-
-###
-
-export_label        = ttk.Label(main_window,text='Save data (.csv):',font=('Roboto',12),anchor=tk.W,foreground='white',background='blue')
-export_label.place(x=10,y=800)
-path_ex_button      = tk.Button(main_window,text='Pilih file',command=saveFile).place(x=10,y=840)
-
-###
-
-graphout_label    = ttk.Label(main_window,text='Grafik perbandingan:',font=('Roboto',12),anchor=tk.W,foreground='white',background='blue').place(x=710,y=70)
-
-###
-
-main_window.mainloop()
+    #display graph
+    st.write('Berikut Grafik Hasil Perubahan Padanan:')
+    st.pyplot(fig)

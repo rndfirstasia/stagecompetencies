@@ -1,8 +1,7 @@
-pandas
+altair
 numpy
+pandas
+pydeck
+streamlit
 seaborn
 matplotlib
-streamlit
-tk
-customtkinter
-pip==23.3.2
